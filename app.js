@@ -3,7 +3,8 @@ const displayCardContainer = document.getElementById('displayCardContainer');
 const loadingSpiner = document.getElementById('loadingSpiner'); 
 const readNewsHistoryContainer = document.getElementById('readNewsHistoryContainer'); 
 const latestNewsCardContainer = document.getElementById('latestNewsCardContainer'); 
-let isCategory = false;
+const markReadCounter = document.getElementById('markReadCounter'); 
+let isCategory = false, counter = 0;
 
 
 // discuss section all news card handler
@@ -76,7 +77,9 @@ const displayAllNewsCards = (newsCards) => {
 }
 
 const displayHistory = (title, view_count) => {
-    readNewsHistoryContainer.classList.remove('hidden');
+    counter++;
+    markReadCounter.innerText = counter;
+    
     const historyItem = document.createElement('div');
     historyItem.classList = `bg-white rounded-3xl p-4 flex items-center gap-4`;
     historyItem.innerHTML = `
