@@ -93,16 +93,16 @@ const displayLatestNews = (cards) => {
                       <img src="${card.cover_image}" alt="Shoes" class="rounded-xl" />
                     </figure>
                     <div class="card-body">
-                        <p class="opacity-60"><i class="fa-regular fa-calendar mr-3"></i> <span>Date</span></p>
-                      <h2 class="card-title">Card Title</h2>
-                      <p>Card description here</p>
+                        <p class="opacity-60"><i class="fa-regular fa-calendar mr-3"></i> <span>${card.author?.posted_date || 'No publish date'}</span></p>
+                      <h2 class="card-title">${card.title}</h2>
+                      <p>${card.description}</p>
                       <div class="flex gap-4 items-center">
                         <div>
-                            <img src="" alt="">
+                            <img src="${card.profile_image}" alt="" class="size-12 rounded-full">
                         </div>
                         <div>
-                            <h3 class="text-xl font-semibold">Name</h3>
-                            <p class="text-sm opacity-60">Job Title</p>
+                            <h3 class="text-xl font-semibold">${card.author.name}</h3>
+                            <p class="text-sm opacity-60">${card.author?.designation || 'Unknown'}</p>
                         </div>
                       </div>
                     </div>
