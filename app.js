@@ -3,13 +3,22 @@ const displayCardContainer = document.getElementById('displayCardContainer');
 const loadingSpiner = document.getElementById('loadingSpiner'); 
 const readNewsHistoryContainer = document.getElementById('readNewsHistoryContainer'); 
 const latestNewsCardContainer = document.getElementById('latestNewsCardContainer'); 
+let isCategory = false;
 
 
 // discuss section all news card handler
-const handleAllNews = async() => {
-    const res = await fetch('https://openapi.programming-hero.com/api/retro-forum/posts');
-    const {posts} = await res.json();
-    displayAllNewsCards(posts);
+const handleAllNews = async(isCategory, category) => {
+    if(!isCategory) {
+        const res = await fetch('https://openapi.programming-hero.com/api/retro-forum/posts');
+        const {posts} = await res.json();
+        displayAllNewsCards(posts);
+    }
+    else {
+        const res = await fetch(`https://openapi.programming-hero.com/api/retro-forum/posts?category=${category}`);
+        const data = await res.json();
+        const cards = data.posts; console.log(cards);
+        displayAllNewsCards(cards);
+    }
 }
 
 const displayAllNewsCards = (newsCards) => {
@@ -85,7 +94,7 @@ const handleLatestNews = async() => {
 }
 
 const displayLatestNews = (cards) => {
-    cards.forEach((card) => { console.log(card);
+    cards.forEach((card) => {
         const newCard = document.createElement('div');
         newCard.classList = `card bg-base-100 shadow-xl`;
         newCard.innerHTML = `
@@ -109,6 +118,20 @@ const displayLatestNews = (cards) => {
         `;
         latestNewsCardContainer.appendChild(newCard);
     })
+}
+
+const searchCategory = () => {
+    const searchText = searchInputBox.value.toLowerCase();
+    const categories = ['comedy', 'coding', 'music'];
+    if(categories.includes(searchText)) {
+        handleAllNews(true, searchText);
+        searchInputBox.value = '';
+    }
+    else {
+        searchInputBox.value = '';
+        alert('Please insert a valid category!');
+    }
+    
 }
 
 handleLatestNews();
