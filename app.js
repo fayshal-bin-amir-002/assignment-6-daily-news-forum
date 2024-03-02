@@ -9,6 +9,7 @@ let isCategory = false;
 // discuss section all news card handler
 const handleAllNews = async(isCategory, category) => {
     if(!isCategory) {
+        loadSpiner();
         const res = await fetch('https://openapi.programming-hero.com/api/retro-forum/posts');
         const {posts} = await res.json();
         displayAllNewsCards(posts);
@@ -124,6 +125,7 @@ const searchCategory = () => {
     const searchText = searchInputBox.value.toLowerCase();
     const categories = ['comedy', 'coding', 'music'];
     if(categories.includes(searchText)) {
+        loadSpiner();
         handleAllNews(true, searchText);
         searchInputBox.value = '';
     }
@@ -132,6 +134,13 @@ const searchCategory = () => {
         alert('Please insert a valid category!');
     }
     
+}
+
+const loadSpiner = () => {
+    loadingSpiner.classList.remove('hidden');
+    setTimeout(() => {
+        loadingSpiner.classList.add('hidden');
+    }, 2000);
 }
 
 handleLatestNews();
