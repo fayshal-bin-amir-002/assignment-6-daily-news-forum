@@ -63,7 +63,7 @@ const displayAllNewsCards = (newsCards) => {
                                 <div class="flex gap-4 lg:gap-7 items-center opacity-60">
                                     <p><i class="fa-regular fa-message mr-2"></i> <span>${card.comment_count}</span></p>
                                     <p><i class="fa-regular fa-eye mr-2"></i> <span>${card.view_count}</span></p>
-                                    <p><i class="fa-regular fa-clock mr-2"></i> <span>${card.posted_time}</span></p>
+                                    <p><i class="fa-regular fa-clock mr-2"></i> <span>${card.posted_time}</span> min</p>
                                 </div>
                                 <span onclick="displayHistory(&quot;${card.title}&quot;, '${card.view_count}')">
                                     <i class="fa-solid fa-envelope bg-[#10B981] text-xl text-white px-3 py-2 rounded-full cursor-pointer"></i>
