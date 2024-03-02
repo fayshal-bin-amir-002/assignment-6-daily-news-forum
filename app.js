@@ -1,6 +1,8 @@
 const searchInputBox = document.getElementById('search-input-box');
 const displayCardContainer = document.getElementById('displayCardContainer'); 
 const loadingSpiner = document.getElementById('loadingSpiner'); 
+const readNewsHistoryContainer = document.getElementById('readNewsHistoryContainer'); 
+const latestNewsCardContainer = document.getElementById('latestNewsCardContainer'); 
 
 
 // discuss section all news card handler
@@ -14,7 +16,10 @@ const displayAllNewsCards = (newsCards) => {
 
     displayCardContainer.innerHTML = '';
 
-    newsCards.forEach((card) => {  console.log(card);
+    newsCards.forEach((card) => {
+
+        let title = card.title;
+        let finalTitle = title.replace(`'`, '');
 
         // check if news card is active or not
         let indicator = '';
@@ -37,23 +42,23 @@ const displayAllNewsCards = (newsCards) => {
                             </div>
                         </div>
                         
-                        <div>
+                        <div class="w-full">
                             <div class="flex items-center gap-5 text-sm font-medium opacity-80 mb-3">
                                 <p># <span>${card.category}</span></p>
                                 <p>Author: <span>${card.author.name}</span></p>
                             </div>
                             <div>
-                                <h3 class="text-lg lg:text-xl font-bold mb-4">10 Kids Unaware of Their Halloween Costume</h3>
-                                <p class="opacity-60">It's one thing to subject yourself to ha Halloween costume mishap because, hey that's your prerogative</p>
+                                <h3 class="text-lg lg:text-xl font-bold mb-4">${card.title}</h3>
+                                <p class="opacity-60">${card.description}</p>
                             </div>
                             <div class="divider"></div>
                             <div class="flex items-center justify-between">
                                 <div class="flex gap-4 lg:gap-7 items-center opacity-60">
-                                    <p><i class="fa-regular fa-message mr-3"></i> <span>560</span></p>
-                                    <p><i class="fa-regular fa-eye mr-3"></i> <span>560</span></p>
-                                    <p><i class="fa-regular fa-clock mr-3"></i> <span>560</span></p>
+                                    <p><i class="fa-regular fa-message mr-2"></i> <span>${card.comment_count}</span></p>
+                                    <p><i class="fa-regular fa-eye mr-2"></i> <span>${card.view_count}</span></p>
+                                    <p><i class="fa-regular fa-clock mr-2"></i> <span>${card.posted_time}</span></p>
                                 </div>
-                                <span onclick="displayHistory()">
+                                <span onclick="displayHistory('${finalTitle}', '${card.view_count}')">
                                     <i class="fa-solid fa-envelope bg-[#10B981] text-xl text-white px-3 py-2 rounded-full cursor-pointer"></i>
                                 </span>
                             </div> 
@@ -63,12 +68,49 @@ const displayAllNewsCards = (newsCards) => {
     });
 }
 
-const displayHistory = () => {
-    console.log("history");
+const displayHistory = (title, view_count) => {
+    const historyItem = document.createElement('div');
+    historyItem.classList = `bg-white rounded-3xl p-4 flex items-center gap-4`;
+    historyItem.innerHTML = `
+    <p class="font-semibold">${title}</p>
+    <p class="opacity-60"><i class="fa-regular fa-eye mr-3"></i> <span>${view_count}</span></p>
+    `;
+    readNewsHistoryContainer.appendChild(historyItem);
 }
 
 const handleLatestNews = async() => {
-
+    const res = await fetch('https://openapi.programming-hero.com/api/retro-forum/latest-posts');
+    const data = await res.json();
+    displayLatestNews(data);
 }
+
+const displayLatestNews = (cards) => {
+    cards.forEach((card) => { console.log(card);
+        const newCard = document.createElement('div');
+        newCard.classList = `card bg-base-100 shadow-xl`;
+        newCard.innerHTML = `
+        <figure class="px-10 pt-10">
+                      <img src="${card.cover_image}" alt="Shoes" class="rounded-xl" />
+                    </figure>
+                    <div class="card-body">
+                        <p class="opacity-60"><i class="fa-regular fa-calendar mr-3"></i> <span>Date</span></p>
+                      <h2 class="card-title">Card Title</h2>
+                      <p>Card description here</p>
+                      <div class="flex gap-4 items-center">
+                        <div>
+                            <img src="" alt="">
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-semibold">Name</h3>
+                            <p class="text-sm opacity-60">Job Title</p>
+                        </div>
+                      </div>
+                    </div>
+        `;
+        latestNewsCardContainer.appendChild(newCard);
+    })
+}
+
+handleLatestNews();
 
 handleAllNews();
