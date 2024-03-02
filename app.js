@@ -41,7 +41,7 @@ const displayAllNewsCards = (newsCards) => {
         }
 
         const newCard = document.createElement('div');
-        newCard.classList = `bg-[#F3F3F5] rounded-3xl p-4 lg:p-10 flex flex-row gap-3 lg:gap-6`;
+        newCard.classList = `bg-[#F3F3F5] rounded-3xl p-4 lg:p-10 flex flex-col lg:flex-row gap-3 lg:gap-6`;
         newCard.innerHTML = `
         <div>
                             <div class="indicator">
