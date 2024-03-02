@@ -28,9 +28,6 @@ const displayAllNewsCards = (newsCards) => {
 
     newsCards.forEach((card) => {
 
-        let title = card.title;
-        let finalTitle = title.replace(`'`, '');
-
         // check if news card is active or not
         let indicator = '';
         if(card.isActive) {
@@ -68,7 +65,7 @@ const displayAllNewsCards = (newsCards) => {
                                     <p><i class="fa-regular fa-eye mr-2"></i> <span>${card.view_count}</span></p>
                                     <p><i class="fa-regular fa-clock mr-2"></i> <span>${card.posted_time}</span></p>
                                 </div>
-                                <span onclick="displayHistory('${finalTitle}', '${card.view_count}')">
+                                <span onclick="displayHistory(&quot;${card.title}&quot;, '${card.view_count}')">
                                     <i class="fa-solid fa-envelope bg-[#10B981] text-xl text-white px-3 py-2 rounded-full cursor-pointer"></i>
                                 </span>
                             </div> 
