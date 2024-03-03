@@ -18,7 +18,7 @@ const handleAllNews = async(isCategory, category) => {
     else {
         const res = await fetch(`https://openapi.programming-hero.com/api/retro-forum/posts?category=${category}`);
         const data = await res.json();
-        const cards = data.posts; console.log(cards);
+        const cards = data.posts;
         displayAllNewsCards(cards);
     }
 }
