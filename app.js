@@ -23,6 +23,7 @@ const handleAllNews = async(isCategory, category) => {
     }
 }
 
+// function for displaying all cards
 const displayAllNewsCards = (newsCards) => {
 
     displayCardContainer.innerHTML = '';
@@ -76,10 +77,11 @@ const displayAllNewsCards = (newsCards) => {
     });
 }
 
+//function for click on read as btn
 const displayHistory = (title, view_count) => {
     counter++;
     markReadCounter.innerText = counter;
-    
+
     const historyItem = document.createElement('div');
     historyItem.classList = `bg-white rounded-3xl p-4 flex items-center gap-4`;
     historyItem.innerHTML = `
@@ -89,12 +91,14 @@ const displayHistory = (title, view_count) => {
     readNewsHistoryContainer.appendChild(historyItem);
 }
 
+//function for fetching latest news cards
 const handleLatestNews = async() => {
     const res = await fetch('https://openapi.programming-hero.com/api/retro-forum/latest-posts');
     const data = await res.json();
     displayLatestNews(data);
 }
 
+// function for display latest news cards
 const displayLatestNews = (cards) => {
     cards.forEach((card) => {
         const newCard = document.createElement('div');
@@ -122,6 +126,7 @@ const displayLatestNews = (cards) => {
     })
 }
 
+// function for search
 const searchCategory = () => {
     const searchText = searchInputBox.value.toLowerCase();
     const categories = ['comedy', 'coding', 'music'];
@@ -137,6 +142,7 @@ const searchCategory = () => {
     
 }
 
+// loading spiner function 
 const loadSpiner = () => {
     loadingSpiner.classList.remove('hidden');
     setTimeout(() => {
